@@ -1,0 +1,11 @@
+#### 1. Get non repeated rows from whole data
+```sql
+select distinct * from employee; 
+```
+
+ #### 2. Get non repeated rows from a selected column
+```sql
+select distinct emp_name from employee;
+```
+
+For detailed explanation: [YouTube Video](https://www.youtube.com/watch?v=7GNvPPwBDhE&list=PL53IeEJJLQl3xIzMPqA7lApebsB-UqtNB&index=11)
