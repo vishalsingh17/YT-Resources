@@ -1,0 +1,127 @@
+# The `BETWEEN` Operator in SQL
+
+The `BETWEEN` operator in SQL is used to filter the result set within a specified range. It is often used in `WHERE` or `HAVING` clauses to define a range of values for a particular column. The `BETWEEN` operator includes both the lower and upper values in the range, making it inclusive.
+
+## Syntax:
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+```
+
+- **`column_name`**: The name of the column where you want to apply the range filter.
+- **`value1` and `value2`**: The range of values to filter by. Both values are included in the result set.
+
+## Important Notes:
+1. **Inclusive**: Both the lower and upper bounds of the range are included in the result.
+2. **Works with Different Data Types**: The `BETWEEN` operator can be used with numeric, text, and date values.
+3. **Order Matters**: The lower value (`value1`) should always be listed first. SQL will throw an error if you reverse the values (i.e., `value1 > value2`).
+
+---
+
+## 1. Using `BETWEEN` with Numeric Values
+
+- **Example**: Retrieve employees whose salary is between 3000 and 7000.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY
+    FROM emp_details
+    WHERE SALARY BETWEEN 3000 AND 7000;
+    ```
+    **Explanation**: This query returns all employees who earn a salary between 3000 and 7000 (inclusive).
+
+---
+
+## 2. Using `BETWEEN` with Date Values
+
+- **Example**: Retrieve employees hired between January 1, 2005, and December 31, 2010.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, HIRE_DATE
+    FROM emp_details
+    WHERE HIRE_DATE BETWEEN '2005-01-01' AND '2010-12-31';
+    ```
+    **Explanation**: This query returns employees whose hire date is between January 1, 2005, and December 31, 2010. Both boundary dates are included in the results.
+
+---
+
+## 3. Using `BETWEEN` with Text Values
+
+- **Example**: Retrieve employees whose first names fall alphabetically between 'A' and 'M'.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME
+    FROM emp_details
+    WHERE FIRST_NAME BETWEEN 'A' AND 'M';
+    ```
+    **Explanation**: This query returns employees whose first names are alphabetically between 'A' and 'M'. The comparison is case-insensitive and will include names starting with 'A' and 'M'.
+
+---
+
+## 4. Using `NOT BETWEEN`
+
+You can negate the `BETWEEN` operator using `NOT BETWEEN` to exclude values within the specified range.
+
+- **Example**: Retrieve employees whose salary is not between 4000 and 8000.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY
+    FROM emp_details
+    WHERE SALARY NOT BETWEEN 4000 AND 8000;
+    ```
+    **Explanation**: This query returns all employees whose salary is outside the range of 4000 and 8000. This includes those earning less than 4000 or more than 8000.
+
+---
+
+## 5. `BETWEEN` with Multiple Conditions
+
+You can use `BETWEEN` along with other operators (like `AND`) to apply more complex filters.
+
+- **Example**: Retrieve employees hired between '2005-01-01' and '2010-12-31' with a salary between 3000 and 6000.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, HIRE_DATE, SALARY
+    FROM emp_details
+    WHERE HIRE_DATE BETWEEN '2005-01-01' AND '2010-12-31'
+    AND SALARY BETWEEN 3000 AND 6000;
+    ```
+    **Explanation**: This query filters employees who were hired between January 1, 2005, and December 31, 2010, and whose salary is between 3000 and 6000.
+
+---
+
+## 6. `BETWEEN` with Numeric Ranges in Calculated Columns
+
+You can apply the `BETWEEN` operator on calculated or derived columns.
+
+- **Example**: Retrieve employees whose total compensation (salary + commission) is between 5000 and 15000.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, (SALARY + COMMISSION_PCT) AS TOTAL_COMPENSATION
+    FROM emp_details
+    WHERE (SALARY + COMMISSION_PCT) BETWEEN 5000 AND 15000;
+    ```
+    **Explanation**: This query calculates the total compensation (salary plus commission) and retrieves those employees whose total compensation falls between 5000 and 15000.
+
+---
+
+## 7. `BETWEEN` with Date Ranges and Time
+
+When working with date and time data types, you can apply the `BETWEEN` operator to specific date-time ranges.
+
+- **Example**: Retrieve employees hired between '01-JAN-2005 08:00:00' and '01-JAN-2010 17:00:00'.
+
+    ```sql
+    SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, HIRE_DATE
+    FROM emp_details
+    WHERE HIRE_DATE BETWEEN '2005-01-01 08:00:00' AND '2010-01-01 17:00:00';
+    ```
+    **Explanation**: This query returns employees whose hire date falls between the specified date and time range.
+
+---
+
+## Key Takeaways:
+- The `BETWEEN` operator is inclusive, meaning it includes both the start and end values in the result.
+- It can be used with numbers, text, and dates.
+- For text, the range is determined alphabetically.
+- `NOT BETWEEN` excludes values within the specified range.
+- You can combine `BETWEEN` with other conditions using logical operators like `AND` and `OR` for more complex queries.
